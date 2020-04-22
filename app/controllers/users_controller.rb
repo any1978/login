@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     def create
       @user = User.new(user_params)
       if @user.save
-        current_user = @user
+        session[:user_id] = user.id
         redirect_to user_path(@user.id)
       else
         render :new
@@ -15,6 +15,8 @@ class UsersController < ApplicationController
 
     def show
       @user = User.find(params[:id])
+      @favorite_blogs = current_user.favorite_blogs.order(created_at: "DESC")
+      @count_blogs = current_user.blogs
     end
 
 

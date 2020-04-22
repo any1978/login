@@ -1,2 +1,33 @@
 <h1><%= @user.name %>のページ</h1>
 <p>メールアドレス: <%= @user.email %></p>
+<%= link_to 'New Blog', new_blog_path %>
+
+<div>
+  <% count = 0 %>
+    <% @count_blogs.each do |b| %>
+    <% if b.favorites.present? %>
+      <% count += 1 %>
+    <% end %>
+  <% end %>
+  <p>favorite counted <%= count %></p>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @favorite_blogs.each do |blog| %>
+      <tr>
+        <td><%= blog.title %></td>
+        <td><%= blog.content %></td>
+        <td><%= link_to 'Show', blog %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
